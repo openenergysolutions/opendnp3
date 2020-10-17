@@ -35,13 +35,21 @@ using namespace opendnp3;
 
 DatabaseConfig ConfigureDatabase()
 {
-    DatabaseConfig config(10); // 10 of each type with default settings
+    DatabaseConfig db; // default constructor doesn't configure any points
 
-    config.analog_input[0].clazz = PointClass::Class2;
-    config.analog_input[0].svariation = StaticAnalogVariation::Group30Var5;
-    config.analog_input[0].evariation = EventAnalogVariation::Group32Var7;
+    // create a default configuration for analogs
+    AnalogConfig default_analog_config;
+    default_analog_config.clazz = PointClass::Class1;
+    default_analog_config.deadband = 0.1;
+    default_analog_config.svariation = StaticAnalogVariation::Group30Var5;
+    default_analog_config.evariation = EventAnalogVariation::Group32Var7;
+
+    // use this default configuration to add indices 0, 9, 10
+    db.analog_input[0] = default_analog_config;
+    db.analog_input[9] = default_analog_config;
+    db.analog_input[10] = default_analog_config;
             
-    return config;
+    return db;
 }
 
 struct State
