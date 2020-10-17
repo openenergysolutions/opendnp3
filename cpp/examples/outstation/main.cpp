@@ -53,7 +53,21 @@ struct State
     uint8_t octetStringValue = 1;
 };
 
-auto app = DefaultOutstationApplication::Create();
+class MyApplication : public IOutstationApplication
+{
+    uint32_t num_confirms = 0;
+
+    void OnConfirmProcessed(bool is_unsolicited, uint32_t num_class1, uint32_t num_class2, uint32_t num_class3) override {
+        ++(this->num_confirms);
+        std::cout << "received confirm: " << this->num_confirms;
+        std::cout << " unsolicited: " << is_unsolicited;
+        std::cout << " num_class1: " << num_class1;
+        std::cout << " num_class2: " << num_class2;
+        std::cout << " num_class3: " << num_class3 << std::endl;
+    }
+};
+
+auto app = std::make_shared<MyApplication>();
 
 void AddUpdates(UpdateBuilder& builder, State& state, const std::string& arguments);
 
