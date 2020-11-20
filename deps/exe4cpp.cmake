@@ -15,8 +15,9 @@
 #    target_compile_features(exe4cpp INTERFACE cxx_std_14)
 #endif()
 
-#find_package(exe4cpp REQUIRED)
-find_path(EXE4CPP_INCLUDE exe4cpp/Typedefs.h REQUIRED)
-add_library(exe4cpp INTERFACE)
-target_include_directories(exe4cpp INTERFACE ${EXE4CPP_INCLUDE})
-target_compile_features(exe4cpp INTERFACE cxx_std_14)
+find_package(exe4cpp REQUIRED)
+
+#find_path(EXE4CPP_INCLUDE exe4cpp/Typedefs.h REQUIRED)
+#add_library(exe4cpp INTERFACE)
+#target_include_directories(exe4cpp INTERFACE ${EXE4CPP_INCLUDE})
+#target_compile_features(exe4cpp INTERFACE cxx_std_14)

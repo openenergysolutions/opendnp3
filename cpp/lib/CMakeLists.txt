@@ -686,6 +686,17 @@ if(DNP3_TLS)
     target_compile_definitions(opendnp3 PRIVATE OPENDNP3_USE_TLS)
 endif()
 
+include(CMakePackageConfigHelpers)
+write_basic_package_version_file(
+    "${PROJECT_BINARY_DIR}/opendnp3ConfigVersion.cmake"
+    VERSION 3.1.0
+    COMPATIBILITY AnyNewerVersion
+)
+configure_package_config_file(
+    "${PROJECT_SOURCE_DIR}/cmake/opendnp3Config.cmake.in"
+    "${PROJECT_BINARY_DIR}/opendnp3Config.cmake"
+    INSTALL_DESTINATION lib/cmake/opendnp3
+)
 install(TARGETS opendnp3
     EXPORT opendnp3-export
     RUNTIME DESTINATION bin
@@ -694,8 +705,11 @@ install(TARGETS opendnp3
 )
 install(EXPORT opendnp3-export
     NAMESPACE opendnp3::
-    DESTINATION lib/cmake
+    DESTINATION lib/cmake/opendnp3
 )
+install(FILES "${PROJECT_BINARY_DIR}/opendnp3ConfigVersion.cmake"
+              "${PROJECT_BINARY_DIR}/opendnp3Config.cmake"
+        DESTINATION lib/cmake/opendnp3)
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/
     DESTINATION include
 )
